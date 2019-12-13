@@ -1,0 +1,281 @@
+@import url('https://fonts.googleapis.com/css?family=Press+Start+2P&display=swap');
+
+/******* TABLE OF CONTENTS */
+/******* 1-General ********/
+/******* 2-HEADER *********/
+/******* 3-main_game ******/
+/******* 4-FOOTER  ********/
+/******* 5-animations *****/
+/**************************/
+
+/* 1-General */
+
+html {
+  box-sizing: border-box;
+}
+*, *::before, *::after {
+  box-sizing: inherit;
+}
+body {
+  margin: 0 auto;
+  padding: 0;
+  font-family: 'Press Start 2P', cursive;
+}
+.hidden {
+  position: absolute;
+  left: -100000px;
+  height: 1px;
+  width: 1px;
+}
+/* 2-HEADER */
+#header {
+  width: 100%;
+  background-color: black;
+  color: violet;
+  text-align: center;
+  padding: 1em;
+}
+/* 3-main_game */
+#main {
+  /* background from free use asset pack created by Ansimuz, accessed from itch.io (https://ansimuz.itch.io/mountain-dusk-parallax-background), for educational purposes only */
+  background: url('parallax-mountain-bg.png') fixed no-repeat;
+  background-size: cover;
+}
+/* The validator does not recognize backdrop-filter as being proper, but it does work on modern browsers, and
+the website and styling is still functional if the filter is not applied on an older browser */
+.blur {
+  backdrop-filter: blur(10px);
+  background: rgba(0,0,0,0.1);
+  padding-top: 3em;
+  padding-bottom: 3em;
+}
+#stage {
+  filter: none;
+  border: 1px solid #000;
+  height: 600px;
+  width: 405px;
+  position: relative;
+  overflow: hidden;
+  margin: auto;
+  background-color: #885d83;
+  /* background from free use asset pack created by Ansimuz, accessed from itch.io (https://ansimuz.itch.io/mountain-dusk-parallax-background), for educational purposes only */
+  background: url('parallax-mountain-bg.png') fixed no-repeat center center;
+  background-size: auto 100%;
+}
+.message_background {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 102;
+}
+.message {
+  text-align: center;
+  margin-top: 6em;
+  font-size: 2em;
+  color: #fefefe;
+}
+.message.second {
+  margin-top: 1em;
+}
+#move_box {
+  position: absolute;
+  left: 200px;
+  bottom: 0;
+  width: 96px;
+  height: 25px;
+  transform-origin: bottom center;
+}
+#volcano {
+  position: absolute;
+  bottom: 0;
+  width: 96px;
+  height: 96px;
+  transform-origin: bottom center;
+  z-index: 100;
+}
+.life_box {
+  position: absolute;
+  display: flex;
+  flex-flow: row wrap;
+  top: 0;
+  right:0;
+  backdrop-filter: blur(5px);
+  z-index: 101;
+}
+.score_box {
+  color: #fefefe;
+  position: absolute;
+  display: flex;
+  flex-flow: row wrap;
+  top: 0;
+  left: 0;
+  backdrop-filter: blur(5px);
+  z-index: 101;
+
+}
+.lives {
+  flex: 1 0 0;
+  width: 48px;
+  height: 48px;
+  margin-right: 1em;
+}
+.lives:last-of-type{
+  margin-right: 0;
+}
+.lives img {
+  width: 100%;
+  height: 100%;
+}
+.projectile_box {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  transform-origin: bottom left;
+}
+.fireball {
+  position: absolute;
+  width: 9px;
+  height: 68px;
+  /* background from free use asset pack created by Stealthix, accessed from itch.io (https://stealthix.itch.io/animated-fires), for educational purposes only */
+  background: url('Fireball_68x9.png') top left;
+  animation: play 0.4s steps(10) infinite, firey 2.4s steps(6) infinite;
+  transform: scale(3);
+  transform-origin: top center;
+}
+.run_flicker {
+  animation: damage_flicker 0.2s 5;
+}
+
+.volcano_shoot {
+  animation: shoot 0.4s 1;
+}
+
+.skew_right {
+  animation: skew_R 0.4s 1;
+}
+
+.skew_left {
+  animation: skew_L 0.4s 1;
+}
+.enemy_container {
+  position: absolute;
+  width: 64px;
+  height: 64px;
+}
+.spin_ball {
+  animation: magma_spin 1s infinite linear;
+}
+.enemy_box {
+  position: absolute;
+  width: 64px;
+  height: 64px;
+  background: url('Magma_rock.png') top left;
+  background-size: cover;
+  transform-origin: center;
+  animation: magma_spin 1s infinite linear;
+}
+.enemy_kill {
+  position: absolute;
+  width: 32px;
+  height: 32px;
+  background: url('Magma_explosion.png') top center;
+  transform: scale(2);
+  transform-origin: center;
+  animation: magma_boom 0.5s steps(10) 1 forwards;
+}
+#skew_box {
+position: absolute;
+  bottom: 0;
+  width: 96px;
+  height: 25px;
+  transform-origin: bottom center;
+}
+/******* 4-FOOTER  ********/
+#footer {
+  padding: 1em;
+  background-color: black;
+  color: violet;
+}
+.signature {
+  padding-top: 0.5em;
+  padding-left: 2em;
+}
+/******* 5-animations *****/
+@keyframes magma_boom {
+  100% {
+    background-position-y: -320px;
+    transform: scale(4);
+  }
+}
+@keyframes shoot {
+  50% {
+    transform: scale(2, 0.5);
+  }
+  75% {
+    transform: scale(0.75, 1.25);
+  }
+}
+@keyframes play {
+  100% {
+    background-position-y: -680px;
+  }
+}
+@keyframes firey {
+  100% {
+    background-position-x: -54px;
+  }
+}
+@keyframes damage_flicker {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes skew_R {
+  0% {
+    transform: skewX(0);
+    transform-origin: bottom center;
+  }
+  50% {
+    transform: skewX(50deg);
+    transform-origin: bottom center;
+  }
+  100% {
+    transform: skewX(0);
+    transform-origin: bottom center;
+  }
+}
+
+@keyframes skew_L {
+  0% {
+    transform: skewX(0);
+    transform-origin: bottom center;
+  }
+  50% {
+    transform: skewX(-50deg);
+    transform-origin: bottom center;
+  }
+  100% {
+    transform: skewX(0);
+    transform-origin: bottom center;
+  }
+}
+
+@keyframes magma_spin {
+  25% {
+    transform: rotate(90deg);
+  }
+  50% {
+    transform: rotate(180deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
